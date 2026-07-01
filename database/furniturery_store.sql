@@ -187,8 +187,102 @@ ALTER TABLE `pesan_kontak`
 ALTER TABLE `produk`
   ADD CONSTRAINT `produk_ibfk_1` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`),
   ADD CONSTRAINT `produk_ibfk_2` FOREIGN KEY (`dikelola_oleh`) REFERENCES `admin` (`id`);
-COMMIT;
+-- --------------------------------------------------------
 
+--
+-- Struktur dari tabel `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `keranjang`
+--
+
+CREATE TABLE `keranjang` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `produk_id` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pesanan`
+--
+
+CREATE TABLE `pesanan` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `nama_penerima` varchar(100) NOT NULL,
+  `no_hp` varchar(20) NOT NULL,
+  `alamat` text NOT NULL,
+  `metode_bayar` varchar(50) NOT NULL,
+  `catatan` text DEFAULT NULL,
+  `total` int(15) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `tanggal` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pesanan_detail`
+--
+
+CREATE TABLE `pesanan_detail` (
+  `id` int(11) NOT NULL,
+  `pesanan_id` int(11) NOT NULL,
+  `produk_id` int(11) NOT NULL,
+  `nama_produk` varchar(100) NOT NULL,
+  `harga` int(15) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `subtotal` int(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Indeks untuk tabel yang ditambahkan
+--
+
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `keranjang`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `pesanan`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `pesanan_detail`
+  ADD PRIMARY KEY (`id`);
+
+
+--
+-- AUTO_INCREMENT untuk tabel yang ditambahkan
+--
+
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `keranjang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `pesanan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `pesanan_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
