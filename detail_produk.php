@@ -2,13 +2,19 @@
 session_start();
 require "config/koneksi.php";
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+if ($id === 0) {
+    header("Location: katalog_produk.php");
+    exit;
+}
+
 $query = mysqli_query($koneksi, "SELECT * FROM produk WHERE id = $id");
 $p = mysqli_fetch_assoc($query);
 
 if (!$p) {
-    $query = mysqli_query($koneksi, "SELECT * FROM produk WHERE id = 1");
-    $p = mysqli_fetch_assoc($query);
+    header("Location: katalog_produk.php");
+    exit;
 }
 ?>
 <!DOCTYPE html>

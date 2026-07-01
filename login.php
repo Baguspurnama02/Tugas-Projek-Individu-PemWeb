@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
 
             <div class="login-tabs">
-                <button type="button" class="login-tab <?php echo $activeRole == 'user' ? 'active' : ''; ?>" onclick="switchTab('user')">Login User</button>
-                <button type="button" class="login-tab <?php echo $activeRole == 'admin' ? 'active' : ''; ?>" onclick="switchTab('admin')">Login Admin</button>
+                <button type="button" class="login-tab <?php echo $activeRole == 'user' ? 'active' : ''; ?>" onclick="switchTab('user', this)">Login User</button>
+                <button type="button" class="login-tab <?php echo $activeRole == 'admin' ? 'active' : ''; ?>" onclick="switchTab('admin', this)">Login Admin</button>
             </div>
 
             <form action="login.php" method="POST" class="login-form" id="form-user" style="<?php echo $activeRole == 'admin' ? 'display:none;' : ''; ?>">
@@ -97,11 +97,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <script>
-        function switchTab(role) {
+        function switchTab(role, element) {
             document.getElementById('form-user').style.display = role === 'user' ? 'block' : 'none';
             document.getElementById('form-admin').style.display = role === 'admin' ? 'block' : 'none';
             document.querySelectorAll('.login-tab').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if(element) element.classList.add('active');
         }
     </script>
 

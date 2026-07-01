@@ -18,7 +18,13 @@ if (isset($_POST['update_status'])) {
 // Hapus pesanan
 if (isset($_GET['hapus'])) {
     $id_hapus = (int)$_GET['hapus'];
+    
+    // Hapus detail pesanan terlebih dahulu agar tidak jadi sampah
+    mysqli_query($koneksi, "DELETE FROM pesanan_detail WHERE pesanan_id = $id_hapus");
+    
+    // Hapus data pesanan utama
     mysqli_query($koneksi, "DELETE FROM pesanan WHERE id = $id_hapus");
+    
     header("Location: pesanan.php");
     exit;
 }

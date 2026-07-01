@@ -55,6 +55,11 @@ if (isset($_POST['update_produk'])) {
 
 if (isset($_GET['hapus'])) {
     $id_hapus = (int)$_GET['hapus'];
+    
+    // Bersihkan dari keranjang semua user
+    mysqli_query($koneksi, "DELETE FROM keranjang WHERE produk_id = $id_hapus");
+    
+    // Hapus produk
     mysqli_query($koneksi, "DELETE FROM produk WHERE id = $id_hapus");
     header("Location: produk.php");
     exit;
