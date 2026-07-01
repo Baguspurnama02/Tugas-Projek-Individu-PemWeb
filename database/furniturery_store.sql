@@ -75,7 +75,8 @@ CREATE TABLE `pesan_kontak` (
   `email` varchar(100) NOT NULL,
   `pesan` text NOT NULL,
   `tanggal` datetime NOT NULL,
-  `ditangani_oleh` int(11) NOT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `ditangani_oleh` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
